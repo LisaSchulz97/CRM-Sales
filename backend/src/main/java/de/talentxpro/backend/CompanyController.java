@@ -2,10 +2,8 @@ package de.talentxpro.backend;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,20 +19,13 @@ public class CompanyController {
         return companyService.listCompanies();
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable String id) {
+        return ResponseEntity.ok(companyService.findCompanyById(id));
+    }
+
     @PostMapping
-    public Company addCompany() {
-        var company = new Company(
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
-        );
+    public Company addCompany(Company company) {
         return companyService.addCompany(company);
     }
 }
